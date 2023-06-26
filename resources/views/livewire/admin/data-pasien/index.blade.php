@@ -22,13 +22,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i = ($pasiens->currentPage() - 1) * $pasiens->perPage() @endphp
+                            @php
+                                $i = ($pasiens->currentPage() - 1) * $pasiens->perPage();
+                                $aes = new \App\Utils\Aes();
+                            @endphp
                             @forelse ($pasiens as $pasien)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $pasien->Nomor_Reg }}</td>
-                                    <td>{{ $pasien->Nama_Lengkap }}</td>
-                                    <td>{{ $pasien->Jaminan_Kesehatan }}</td>
+                                    <td>{{ $aes->dekripAes($pasien->Nomor_Reg) }}</td>
+                                    <td>{{ $aes->dekripAes($pasien->Nama_Lengkap) }}</td>
+                                    <td>{{ $aes->dekripAes($pasien->Jaminan_Kesehatan) }}</td>
                                     <td>
                                         <a href="#" wire:click="editPasien({{ $pasien->id }})"
                                             data-bs-toggle="modal" data-bs-target="#editDtPasien"

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class Index extends Component
 {
     use WithPagination;
-    public $penyakit;
+    public $penyakit,$riwyat_penyakit;
     public $search = '';
 
     public function showRM(int $pasien_id)
@@ -23,6 +23,20 @@ class Index extends Component
         $this->penyakit = $pasien;
 
     }
+
+    public function deleteRm($riwyat_penyakit)
+    {
+        $this->riwyat_penyakit = $riwyat_penyakit;
+    }
+
+// menghapus data pada database
+    public function destroyRM()
+    {
+        RiwayatPenyakit::where('id', $this->riwyat_penyakit)->delete();
+        session()->flash('message', 'Data Pasien Telah Dihapus');
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
 

@@ -19,13 +19,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i = ($penyakits->currentPage() - 1) * $penyakits->perPage() @endphp
+                            @php
+                                $i = ($penyakits->currentPage() - 1) * $penyakits->perPage();
+                                $aes = new \App\Utils\Aes();
+                            @endphp
                             @forelse ($penyakits as $penyakit)
                                 <tr>
                                     <td>
                                         {{ ++$i }}
                                     </td>
-                                    <td>{{ $penyakit->nama_penyakit }}</td>
+                                    <td>{{ $aes->dekripAes($penyakit->nama_penyakit) }}</td>
                                     <td>
                                         <a href="#" wire:click="deletePenyakit({{ $penyakit->id }})"
                                             data-bs-toggle="modal" data-bs-target="#deleteDtPenyakit"

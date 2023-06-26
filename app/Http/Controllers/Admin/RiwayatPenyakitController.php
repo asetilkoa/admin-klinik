@@ -18,8 +18,8 @@ class RiwayatPenyakitController extends Controller
         $pasien = DataPasien::find($request->id);
         $data = [
             'id'=> $pasien?->id,
-            'Nomor_Reg'=> $pasien?->Nomor_Reg,
-            'Nama_Lengkap'=>$pasien?->Nama_Lengkap,
+            'Nomor_Reg'=> $aes->dekripAes($pasien?->Nomor_Reg),
+            'Nama_Lengkap'=>$aes->dekripAes($pasien?->Nama_Lengkap),
             'Nomor_Identitas'=> $aes->dekripAes($pasien?->Nomor_Identitas),
             'Alamat' => $aes->dekripAes($pasien?->Alamat),
         ];
@@ -38,6 +38,7 @@ class RiwayatPenyakitController extends Controller
 
         # get id penyakit
         foreach($request->cbpasien as $c){
+
             RiwayatPenyakit::create([
                 'id_penyakit' => $c,
                 'id_pasien' => $request->id_pasien

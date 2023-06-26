@@ -13,11 +13,14 @@
                                 <h4 class="card-title ">1. Data Pasien</h4><hr>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        @php
+                                                $aes = new \App\Utils\Aes();
+                                        @endphp
                                         <label for="">Find Pasien</label>
                                         <select class="js-example-basic-single w-100" id="selectpasien">
                                             <option selected disabled>Ketik Nama Pasien</option>
                                             @foreach($pasiens as $pasien)
-                                                <option value="{{ $pasien->id }}">{{$pasien->Nama_Lengkap}}</option>
+                                                <option value="{{ $pasien->id }}">{{$aes->dekripAes($pasien->Nama_Lengkap)}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -71,11 +74,14 @@
                                         <br>
                                     <div class="checkbox-inline">
                                         <div class="row">
+                                            @php
+                                                $aes = new \App\Utils\Aes();
+                                            @endphp
                                             @foreach ($penyakits as $penyakit)
                                             <div class="col-sm-3">
                                                 <label class="form-check-label">
                                                     <input type="checkbox" name="cbpasien[]" class="form-check-input" value="{{ $penyakit->id }}">
-                                                    {{ $penyakit->nama_penyakit }}
+                                                    {{ $aes->dekripAes($penyakit->nama_penyakit) }}
                                                     <br>
                                                 </label><br>
                                             </div><br>
@@ -116,6 +122,7 @@
         })
     </script>
     <script>
+    // menampilkan data pasien
         $(document).ready(function() {
             var ID_PASIEN = 0;
 

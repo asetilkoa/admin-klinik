@@ -26,17 +26,17 @@ class DatabaseSeeder extends Seeder
         $agama = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Khong Hu Cu'];
         $jaminanKesehatan = ['Umum', 'BPJS', 'PBI', 'Non PBI'];
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             \App\Models\DataPasien::create([
-                'Nomor_Reg' => \App\Models\DataPasien::mount(),
-                'Nama_Lengkap' => $faker->name,
-                'Jenis_Identitas' => $jenisIdentitas[array_rand($jenisIdentitas)],
+                'Nomor_Reg' => $aes->enkripAes(\App\Models\DataPasien::mount()),
+                'Nama_Lengkap' => $aes->enkripAes($faker->name),
+                'Jenis_Identitas' => $aes->enkripAes($jenisIdentitas[array_rand($jenisIdentitas)]),
                 'Nomor_Identitas' => $aes->enkripAes($faker->nik),
                 'Gender' => $aes->enkripAes($gender[array_rand($gender)]),
                 'Agama' => $aes->enkripAes($agama[array_rand($agama)]),
                 'Alamat' => $aes->enkripAes($faker->address),
                 'Nomor_Hp' => $aes->enkripAes($faker->phoneNumber),
-                'Jaminan_Kesehatan' => $jaminanKesehatan[array_rand($jaminanKesehatan)],
+                'Jaminan_Kesehatan' => $aes->enkripAes($jaminanKesehatan[array_rand($jaminanKesehatan)]),
                 'Nomor_Jamkes' => $aes->enkripAes($faker->nik),
                 'Golongan_Darah' => $aes->enkripAes($golonganDarah[array_rand($golonganDarah)]),
                 'Tanggal_Lahir' => $aes->enkripAes($faker->date('Y-m-d')),

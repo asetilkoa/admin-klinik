@@ -18,21 +18,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i = ($riwayatPenyakit->currentPage() - 1) * $riwayatPenyakit->perPage() @endphp
+                            @php
+                                $i = ($riwayatPenyakit->currentPage() - 1) * $riwayatPenyakit->perPage();
+                                $aes = new \App\Utils\Aes();
+                            @endphp
                             @forelse ($riwayatPenyakit as $riwayat)
                                 <tr>
                                     <td>
                                         {{ ++$i }}
                                     </td>
                                     <td>
-                                        {{$riwayat->Nomor_Reg}}
+                                        {{$aes->dekripAes($riwayat->Nomor_Reg)}}
                                     </td>
                                     <td>
-                                        {{$riwayat->Nama_Lengkap}}
+                                        {{$aes->dekripAes($riwayat->Nama_Lengkap)}}
                                     </td>
                                     <td>
-                                        <a href="#" wire:click="#"
-                                            data-bs-toggle="modal" data-bs-target="#"
+                                        <a href="#" wire:click="deleteRm({{ $riwayat->id }})"
+                                            data-bs-toggle="modal" data-bs-target="#deleteDtRM"
                                             class="btn btn-danger btn-rounded btn-icon">
                                             <i class="ti-trash btn-icon-prepend"></i>
                                         </a>
